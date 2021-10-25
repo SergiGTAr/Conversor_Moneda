@@ -1,88 +1,77 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:foregroundTint="#000000"
     tools:context="facci.com.conversorac.MainActivityAC">
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Moneda Actual"
         android:id="@+id/monedaActualTV"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Des de"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#27AF08"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="40dp" />
 
     <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/monedaActualSP"
+        android:layout_width="166dp"
+        android:layout_height="68dp"
         android:entries="@array/monedas"
-        android:layout_gravity="center_horizontal" />
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="89dp" />
 
     <TextView
+        android:id="@+id/monedaCambioTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="A"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Moneda Cambio"
-        android:id="@+id/monedaCambioTV"
-        android:layout_gravity="center_horizontal" />
+        android:textColor="#27AF08"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="183dp" />
 
     <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/monedaCambioSP"
-        android:layout_gravity="center_horizontal"
-        android:entries="@array/monedas"    />
+        android:layout_width="181dp"
+        android:layout_height="60dp"
+        android:entries="@array/monedas"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="227dp" />
 
-    <TextView
+    <Button
+        android:id="@+id/btnSwipe"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Valor a Cambiar"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/circular_button"
+        android:text="Swipe"
+        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteY="157dp" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
+        android:id="@+id/edittxtPerConvertir"
+        android:layout_width="116dp"
+        android:layout_height="50dp"
         android:ems="10"
-        android:id="@+id/valorCambioET"
-        android:layout_gravity="center_horizontal" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Procesar Cambio"
-            android:id="@+id/procesarCambioBT"
-            android:onClick="clickConvertir"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Acerca De "
-            android:id="@+id/acercaDeBT" />
-    </LinearLayout>
+        android:inputType="numberDecimal"
+        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteY="91dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Usted recibira"
-        android:id="@+id/resultadoTV"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:id="@+id/txtConvertit"
+        android:layout_width="129dp"
+        android:layout_height="49dp"
+        tools:layout_editor_absoluteX="204dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
