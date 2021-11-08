@@ -40,8 +40,8 @@ public class MainActivityAC extends AppCompatActivity {
 
         monedaActualSP =(Spinner) findViewById(R.id.monedaActualSP);
         monedaCambioSP =(Spinner) findViewById(R.id.monedaCambioSP);
-        valorCambioET =(EditText) findViewById(R.id.valorCambioET);
-        resultadoTV =(TextView) findViewById(R.id.resultadoTV);
+        /*valorCambioET =(EditText) findViewById(R.id.valorCambioET);
+        resultadoTV =(TextView) findViewById(R.id.resultadoTV);*/
 
         String monedaActual = monedaActualSP.getSelectedItem().toString();
         String monedaCambio = monedaCambioSP.getSelectedItem().toString();
