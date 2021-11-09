@@ -3,11 +3,13 @@ package facci.com.conversorac;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +20,7 @@ public class MainActivityAC extends AppCompatActivity {
     private Spinner monedaActualSP;
     private Spinner monedaCambioSP;
     private EditText valorCambioET;
+    private final EditText edittxtPerConvertir = findViewById(R.id.edittxtPerConvertir);
     private TextView resultadoTV;
 
 
@@ -30,10 +33,22 @@ public class MainActivityAC extends AppCompatActivity {
         setContentView(R.layout.activity_main_activity_ac);
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, datos);
-
+        ArrayAdapter<String> adaptador2 = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, datos);
         monedaActualSP =(Spinner) findViewById(R.id.monedaActualSP);
+        monedaCambioSP =(Spinner) findViewById(R.id.monedaCambioSP);
         monedaActualSP.setAdapter(adaptador);
+        monedaCambioSP.setAdapter(adaptador2);
+        monedaCambioSP.setSelection(monedaActualSP.getSelectedItemPosition()+1);
+    }
 
+
+        public void btnSwipeClick(View v){
+        monedaActualSP =(Spinner) findViewById(R.id.monedaActualSP);
+        monedaCambioSP =(Spinner) findViewById(R.id.monedaCambioSP);
+        int posicionMonedaActual = monedaActualSP.getSelectedItemPosition();
+        int posicionMonedaCambio = monedaCambioSP.getSelectedItemPosition();
+        monedaActualSP.setSelection(posicionMonedaCambio);
+        monedaCambioSP.setSelection(posicionMonedaActual);
     }
 
     public void clickConvertir(View v){
@@ -60,6 +75,8 @@ public class MainActivityAC extends AppCompatActivity {
         }
 
     }
+
+
 
     private double procesarConversion(String monedaActual, String monedaCambio, double valorCambio){
         double resultadoConversion =0;
