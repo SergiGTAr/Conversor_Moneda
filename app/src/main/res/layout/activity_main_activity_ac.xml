@@ -83,6 +83,7 @@
         android:layout_marginTop="116dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:text="@string/preInputText"
         app:layout_constraintStart_toEndOf="@+id/monedaActualSP"
         app:layout_constraintTop_toTopOf="parent" />
 
