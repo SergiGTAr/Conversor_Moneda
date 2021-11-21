@@ -1,3 +1,4 @@
+/*
 package facci.com.conversorac;
 
 import android.os.AsyncTask;
@@ -72,4 +73,4 @@ public class GetExchangeRates extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
     }
-}
+}*/

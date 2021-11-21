@@ -13,88 +13,116 @@
         android:id="@+id/monedaActualTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="33dp"
         android:text="Des de"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#43A047"
         app:layout_constraintBottom_toTopOf="@+id/monedaActualSP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/edittxtPerConvertir"
+        app:layout_constraintTop_toBottomOf="@+id/edittxtPerConvertir" />
+
+    <TextView
+        android:id="@+id/monedaActualTV3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="52dp"
+        android:text="Convertir"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#43A047"
+        app:layout_constraintBottom_toTopOf="@+id/edittxtPerConvertir"
+        app:layout_constraintStart_toStartOf="@+id/edittxtPerConvertir"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/monedaActualTV2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="14dp"
+        android:text="Resultat"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#43A047"
+        app:layout_constraintBottom_toTopOf="@+id/txtConvertit"
+        app:layout_constraintStart_toStartOf="@+id/txtConvertit"
+        app:layout_constraintTop_toBottomOf="@+id/monedaCambioSP" />
 
     <Spinner
         android:id="@+id/monedaActualSP"
         android:layout_width="181dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginBottom="75dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="45dp"
         android:entries="@array/monedas"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/monedaCambioSP"
+        app:layout_constraintBottom_toTopOf="@+id/monedaCambioTV"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/monedaActualTV" />
 
     <TextView
         android:id="@+id/monedaCambioTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginBottom="32dp"
         android:text="A"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#43A047"
-        app:layout_constraintBottom_toTopOf="@+id/monedaCambioSP"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monedaActualSP"
-        app:layout_constraintVertical_bias="0.343" />
+        app:layout_constraintBottom_toTopOf="@+id/btnSwipe"
+        app:layout_constraintStart_toStartOf="@+id/btnSwipe"
+        app:layout_constraintTop_toBottomOf="@+id/monedaActualSP" />
 
     <Spinner
         android:id="@+id/monedaCambioSP"
         android:layout_width="181dp"
-        android:layout_height="60dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         android:entries="@array/monedas"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/monedaActualTV2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSwipe" />
 
     <Button
         android:id="@+id/btnSwipe"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="41dp"
         android:background="@drawable/circular_button"
         android:onClick="btnSwipeClick"
         android:text="@string/swipe"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/monedaCambioTV"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.233" />
+        app:layout_constraintBottom_toTopOf="@+id/monedaCambioSP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monedaCambioTV" />
 
     <EditText
         android:id="@+id/edittxtPerConvertir"
         android:layout_width="116dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="116dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="34dp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="@string/preInputText"
-        app:layout_constraintStart_toEndOf="@+id/monedaActualSP"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/monedaActualTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monedaActualTV3" />
 
     <TextView
         android:id="@+id/txtConvertit"
         android:layout_width="129dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="116dp"
-        app:layout_constraintStart_toEndOf="@+id/monedaCambioSP"
-        app:layout_constraintTop_toBottomOf="@+id/edittxtPerConvertir" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monedaActualTV2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

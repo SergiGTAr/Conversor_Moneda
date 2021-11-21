@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,13 +34,21 @@ public class MainActivityAC extends AppCompatActivity {
         ArrayList<Object> arrayList = new ArrayList<>();
         ArrayAdapter adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
         ArrayAdapter adaptador2 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
-        new GetExchangeRates().execute();
+        //new GetExchangeRates().execute();
         edittxtPerConvertir = findViewById(R.id.edittxtPerConvertir);
         monedaActualSP = (Spinner) findViewById(R.id.monedaActualSP);
         monedaCambioSP = (Spinner) findViewById(R.id.monedaCambioSP);
         monedaActualSP.setAdapter(adaptador);
         monedaCambioSP.setAdapter(adaptador2);
         monedaCambioSP.setSelection(monedaActualSP.getSelectedItemPosition() + 1);
+        Button circular_button = (Button) findViewById(R.id.btnSwipe);
+        circular_button.setOnClickListener(v -> {
+            Animation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            rotate.setDuration(1000);
+            rotate.setRepeatCount(0);
+            rotate.setRepeatMode(Animation.RESTART);
+            circular_button.startAnimation(rotate);
+        });
     }
 
 
