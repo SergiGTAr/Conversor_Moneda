@@ -3,8 +3,17 @@ package facci.com.conversorac;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,61 +60,80 @@ public class MainActivityAC extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
-                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder db = dbf.newDocumentBuilder();
-                    Document doc = db.parse(url.openStream());
-
-                    NodeList namelist = (NodeList) doc.getElementsByTagName("Cube");
-
+        if (!comprobacionInternet()){
+            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:test.db");
+                 Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery("SELECT * FROM Currency")) {
+                while (resultSet.next()) {
                     CurrencyArray.clear();
                     CurrencyName.clear();
-                    for (int i = 0; i < namelist.getLength(); i++) {
-                        Node p = namelist.item(i);
-                        Element person = (Element) p;
 
-                        String varCurrency = (String) person.getAttribute("currency");
-                        String varRate = (String) person.getAttribute("rate");
-                        if (!varCurrency.equals("")) {
 
+                    String varCurrency = null;
+                    String varRate = null;
                             CurrencyName.add(varCurrency);
                             Currency NewCurrency = new Currency(varCurrency,Double.parseDouble(varRate));
                             CurrencyArray.add(NewCurrency);
-                        }
-                    }
-
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setRequestProperty("Content-Type", "application/xml");
-                    connection.setRequestProperty("Accept", "application/xml");
-                    connection.setDoOutput(true);
-                    connection.setDoInput(true);
-                    connection.connect();
-
-                    InputStream stream = connection.getInputStream();
-                    Scanner scanner = new Scanner(stream);
-                    scanner.useDelimiter("\\A");
-                    String xml = scanner.hasNext() ? scanner.next() : "";
-                    scanner.close();
-
-                    Log.d(TAG, xml);
-
-                    String[] currencies = xml.split("<Cube currency=\\\"");
-                    for (int i = 1; i < currencies.length; i++) {
-                        String[] values = currencies[i].split("\\\"");
-                        String currency = values[0];
-                        String value = values[1].split("\\\"")[0];
-                    }
                 }
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
+        }else{
+
+        }
+
+        new Thread(() -> {
+            try {
+                URL url = new URL("https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document doc = db.parse(url.openStream());
+
+                NodeList namelist = (NodeList) doc.getElementsByTagName("Cube");
+
+                CurrencyArray.clear();
+                CurrencyName.clear();
+                for (int i = 0; i < namelist.getLength(); i++) {
+                    Node p = namelist.item(i);
+                    Element person = (Element) p;
+
+                    String varCurrency = (String) person.getAttribute("currency");
+                    String varRate = (String) person.getAttribute("rate");
+                    if (!varCurrency.equals("")) {
+
+                        CurrencyName.add(varCurrency);
+                        Currency NewCurrency = new Currency(varCurrency,Double.parseDouble(varRate));
+                        CurrencyArray.add(NewCurrency);
+                    }
+                }
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Content-Type", "application/xml");
+                connection.setRequestProperty("Accept", "application/xml");
+                connection.setDoOutput(true);
+                connection.setDoInput(true);
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                Scanner scanner = new Scanner(stream);
+                scanner.useDelimiter("\\A");
+                String xml = scanner.hasNext() ? scanner.next() : "";
+                scanner.close();
+
+                Log.d(TAG, xml);
+
+                String[] currencies = xml.split("<Cube currency=\\\"");
+                for (int i = 1; i < currencies.length; i++) {
+                    String[] values = currencies[i].split("\\\"");
+                    String currency = values[0];
+                    String value = values[1].split("\\\"")[0];
+                }
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
         }).start();
 
         try {
@@ -180,10 +209,29 @@ public class MainActivityAC extends AppCompatActivity {
 
     }
 
+    private boolean comprobacionInternet() {
+        ConnectivityManager connec = (ConnectivityManager) MainActivityAC.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        // Recupera todas las redes (tanto móviles como wifi)
+        NetworkInfo[] redes = connec.getAllNetworkInfo();
+        for (int i = 0; i < redes.length; i++) {
+            // Si alguna red tiene conexión, se devuelve true
+            if (redes[i].getState() == NetworkInfo.State.CONNECTED) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public void btnLlistaMonedes(View v){
-        Intent intent = new Intent(MainActivityAC.this, CurrencyList.class);
-        intent.putExtra("Currencies", CurrencyArray);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(MainActivityAC.this, CurrencyList.class);
+            intent.putExtra("Currencies", CurrencyArray);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void calcularCanvi(){

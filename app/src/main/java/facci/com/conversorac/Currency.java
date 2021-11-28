@@ -3,16 +3,16 @@ package facci.com.conversorac;
 import java.io.Serializable;
 
 public class Currency implements Serializable {
-    String name;
+    String moneda;
     double valor;
 
-    public Currency (String name, double valor){
-        this.name = name;
+    public Currency (String moneda, double valor){
+        this.moneda = moneda;
         this.valor = valor;
     }
 
     public String toString(){
-        return "Currency: " + name + "  Valor: " + valor;
+        return "Currency: " + moneda + "  Valor: " + valor;
     }
 
 }

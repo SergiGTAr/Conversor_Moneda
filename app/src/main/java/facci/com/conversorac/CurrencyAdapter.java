@@ -23,9 +23,9 @@ public class CurrencyAdapter extends ArrayAdapter<Currency> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_llistamonedes, parent, false);
         }
 
-        TextView Nom = (TextView) convertView.findViewById(R.id.txtMoneda);
+        TextView Moneda = (TextView) convertView.findViewById(R.id.txtMoneda);
         TextView Valor = (TextView) convertView.findViewById(R.id.txtValor);
-        Nom.setText(currency.name);
+        Moneda.setText(currency.moneda);
         Valor.setText(Double.toString(currency.valor));
 
         return convertView;
