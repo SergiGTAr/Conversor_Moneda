@@ -2,4 +2,7 @@
     <string name="app_name">ConversorAC</string>
     <string name="swipe">Swipe</string>
     <string name="preInputText">0</string>
+    <string name="moneda">Moneda</string>
+    <string name="valor">Valor</string>
+    <string name="monedes">Monedes</string>
 </resources>

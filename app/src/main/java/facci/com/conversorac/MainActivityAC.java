@@ -3,6 +3,7 @@ package facci.com.conversorac;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
@@ -49,8 +50,6 @@ public class MainActivityAC extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        XMLHandler dbHelper = new XMLHandler(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         new Thread(new Runnable(){
             @Override
             public void run() {
@@ -99,11 +98,6 @@ public class MainActivityAC extends AppCompatActivity {
                         String[] values = currencies[i].split("\\\"");
                         String currency = values[0];
                         String value = values[1].split("\\\"")[0];
-                        XMLHandler.addCurrency(currency, Double.parseDouble(value));
-                    }
-                    List<String> allcurrencies = dbHelper.getAllCurrencies();
-                    for (String currency : currencies) {
-                        Log.d(TAG, currency + " " + dbHelper.getCurrencyValue(currency));
                     }
                 }
                 catch (Exception ex) {
@@ -184,6 +178,12 @@ public class MainActivityAC extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void btnLlistaMonedes(View v){
+        Intent intent = new Intent(MainActivityAC.this, CurrencyList.class);
+        intent.putExtra("Currencies", CurrencyArray);
+        startActivity(intent);
     }
 
     public void calcularCanvi(){
